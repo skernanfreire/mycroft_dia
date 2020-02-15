@@ -18,7 +18,7 @@ class DiamondAssistant(MycroftSkill):
         """ This is a Padatious intent handler.
         It is triggered using a list of sample phrases."""
         machine_number = message.data.get('number')
-        self.speak_dialog('machine.status.diamond',{'number': machine_number})
+        self.speak_dialog('machine.status',{'number': machine_number})
 
     @intent_handler(IntentBuilder('ThankYouIntent').require('ThankYouKeyword'))
     def handle_thank_you_intent(self, message):
