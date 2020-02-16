@@ -13,13 +13,13 @@ class DiamondAssistant(MycroftSkill):
         settings will be available."""
         my_setting = self.settings.get('my_setting')'''
 
-    @intent_file_handler('machine.status.intent')
+    '''@intent_file_handler('machine.status.intent')
     def handle_machine_status_intent(self, message):
         """ This is a Padatious intent handler.
         It is triggered using a list of sample phrases."""
         self.log.info("padatious status intent was triggered")
         machine_number = message.data.get('number')
-        self.speak_dialog('machine.status',{'number': machine_number})
+        self.speak_dialog('machine.status',{'number': machine_number})'''
 
     @intent_handler(IntentBuilder('MaintenanceIntent').optionally('MachineKeyword').require('MaintenanceKeyword').require('number'))
     def handle_maintenance_intent(self, message):
@@ -36,6 +36,8 @@ class DiamondAssistant(MycroftSkill):
         machine_number = message.data.get('number')
         self.speak_dialog("machine.maintenance",{'number': machine_number})
         self.set_context('number', machine_number)
+        self.speak("Anything else you would like to know", expect_response = True)
+        
 
     def stop(self):
         pass
