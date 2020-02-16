@@ -1,0 +1,3 @@
+.* (machine|apparatus|robot|device) (?P<number>\w+)
+.* (machine|apparatus|robot|device) (number|identifier|code|name) (?P<number>\w+)
+.* (number|identifier|code|name) (?P<number>\w+)

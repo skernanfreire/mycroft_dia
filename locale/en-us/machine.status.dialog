@@ -3,3 +3,7 @@ machine {number} is operating nominally
 machine {number} is in good shape
 machine {number} is in good condition
 machine {number} is operating perfectly
+machine {number} is operating poorly
+machine {number} is in bad condition
+machine {number} needs immediate attention
+machine {number} is in bad shape

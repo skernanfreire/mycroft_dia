@@ -1,0 +1,4 @@
+machine {number} requires inspection type I2 today
+machine {number} needs cleaning type C4 tomorrow
+machine {number} urgently needs lubrification type L8 asap
+machine {number} does not need any maintenance
