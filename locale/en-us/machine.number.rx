@@ -1,3 +1,3 @@
-.* (machine|apparatus|robot|device|status|maintenance|report) (?P<number>\w+)
-.* (machine|apparatus|robot|device|status|maintenance|report) (number|identifier|code|name) (?P<number>\w+)
-.* (number|identifier|code|name) (?P<number>\w+)
+.* (machine|apparatus|robot|device|status|maintenance|report) (?P<number>\d+)
+.* (machine|apparatus|robot|device|status|maintenance|report) (number|identifier|code|name) (?P<number>\d+)
+.* (number|identifier|code|name) (?P<number>\d+)
