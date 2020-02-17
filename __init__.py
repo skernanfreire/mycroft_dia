@@ -23,10 +23,10 @@ class DiamondAssistant(MycroftSkill):
         self.set_context('number', machine_number)
 
     @intent_file_handler('machine.maintenance.intent')
-    def handle_machine_status_intent(self, message):
+    def handle_machine_maintenance_intent(self, message):
         """ This is a Padatious intent handler.
         It is triggered using a list of sample phrases."""
-        self.log.info("padatious status intent was triggered")
+        self.log.info("padatious maintenance intent was triggered")
         machine_number = message.data.get('number')
         self.speak_dialog('machine.maintenance',{'number': machine_number})
         self.set_context('number', machine_number)
