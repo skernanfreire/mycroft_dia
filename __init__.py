@@ -25,9 +25,8 @@ class DiamondAssistant(MycroftSkill):
     def handle_maintenance_intent(self, message):
         """ This is an Adapt intent handler, it is triggered by a keyword."""
         self.log.info("adapt maintenance intent was triggered")
-        self.log.info('before message: ', message)
         machine_number = message.data.get('number')
-        self.log.info('after message: ',machine_number)
+        self.log.info(machine_number)
         self.speak_dialog("machine.maintenance",{'number': machine_number})
         self.set_context('number', machine_number)
 
@@ -35,12 +34,11 @@ class DiamondAssistant(MycroftSkill):
     def handle_adapt_status_intent(self, message):
         """ This is an Adapt intent handler, it is triggered by a keyword."""
         self.log.info("adapt status intent was triggered")
-        self.log.info('before message: ', message)
         machine_number = message.data.get('number')
-        self.log.info('after message: ',machine_number)
+        self.log.info(machine_number)
         self.speak_dialog("machine.status",{'number': machine_number})
         self.set_context('number', machine_number)
-        self.speak("Anything else you would like to know", expect_response = True)
+      
         
 
     def stop(self):
