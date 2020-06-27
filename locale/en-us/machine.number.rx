@@ -1,6 +1,0 @@
-.* (machine|apparatus|robot|device) (?P<number>.*)
-.* (machine|apparatus|robot|device) (number|identifier|code|name) (?P<number>.*)
-.* (number|identifier|code|name) (?P<number>.*)
-(machine|apparatus|robot|device) (?P<number>.*)
-(machine|apparatus|robot|device) (number|identifier|code|name) (?P<number>.*)
-(number|identifier|code|name) (?P<number>.*)

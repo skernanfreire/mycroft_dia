@@ -6,54 +6,66 @@ class DiamondAssistant(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
 
-    '''def initialize(self):
-        """ Perform any final setup needed for the skill here.
-        This function is invoked after the skill is fully constructed and
-        registered with the system. Intents will be registered and Skill
-        settings will be available."""
-        my_setting = self.settings.get('my_setting')'''
+    def initialize(self):
+    # Set the address of your Rasa's REST endpoint
+    self.conversation_active = False
+    self.convoID = 1
+    self.RASA_API = "https://06d0ffd3d43e.ngrok.io/webhooks/rest/webhook"
+    self.messages = []
 
-    @intent_file_handler('machine.status.intent')
-    def handle_machine_status_intent(self, message):
-        """ This is a Padatious intent handler.
-        It is triggered using a list of sample phrases."""
-        self.log.info("padatious status intent was triggered")
-        machine_number = message.data.get('number')
-        self.speak_dialog('machine.status',{'number': machine_number})
-        self.set_context('number', machine_number)
+    def query_rasa(self, prompt=None):
+        if self.conversation_active == False:
+            return
+        if prompt is None and len(self.messages) > 0:
+            prompt = self.messages[-1]
+        # Speak message to user and save the response
+        msg = self.get_response(prompt)
+        # If user doesn't respond, quietly stop, allowing user to resume later
+        if msg is None:
+            return
+        # Else reset messages
+        self.messages = []
+        # Send post requests to said endpoint using the below format.
+        # "sender" is used to keep track of dialog streams for different users
+        data = requests.post(
+            self.RASA_API, json = {"message" : msg, "sender" : "user{}".format(self.convoID)}
+        )
+        # A JSON Array Object is returned: each element has a user field along
+        # with a text, image, or other resource field signifying the output
+        # print(json.dumps(data.json(), indent=2))
+        for next_response in data.json():
+            if "text" in next_response:
+                self.messages.append(next_response["text"])
+        # Output all but one of the Rasa dialogs
+        if len(self.messages) > 1:
+            for rasa_message in self.messages[:-1]:
+                print(rasa_message)
+    
+        # Kills code when Rasa stop responding
+        if len(self.messages) == 0:
+            self.messages = ["no response from rasa"]
+            return
+        # Use the last dialog from Rasa to prompt for next input from the user
+        prompt = self.messages[-1]
+        # Allows a stream of user inputs by re-calling query_rasa recursively
+        # It will only stop when either user or Rasa stops providing data
+        return self.query_rasa(prompt)
 
-    @intent_file_handler('machine.maintenance.intent')
-    def handle_machine_maintenance_intent(self, message):
-        """ This is a Padatious intent handler.
-        It is triggered using a list of sample phrases."""
-        self.log.info("padatious maintenance intent was triggered")
-        machine_number = message.data.get('number')
-        self.speak_dialog('machine.maintenance',{'number': machine_number})
-        self.set_context('number', machine_number)
+    @intent_handler(IntentBuilder("StartChat").require("Chatwithrasa"))
+    def handle_talk_to_rasa_intent(self, message):
+        self.convoID += 1
+        self.conversation_active = True
+        prompt = "start"
+        self.query_rasa(prompt)
         
-
-    '''@intent_handler(IntentBuilder('MaintenanceIntent').optionally('MachineKeyword').require('MaintenanceKeyword').require('number'))
-    def handle_maintenance_intent(self, message):
-        """ This is an Adapt intent handler, it is triggered by a keyword."""
-        self.log.info("adapt maintenance intent was triggered")
-        machine_number = message.data.get('number')
-        self.log.info(machine_number)
-        self.speak_dialog("machine.maintenance",{'number': machine_number})
-        self.set_context('number', machine_number)
-
-    @intent_handler(IntentBuilder('AdaptStatusIntent').optionally('MachineKeyword').require('MachineStatusKeyword').require('number'))
-    def handle_adapt_status_intent(self, message):
-        """ This is an Adapt intent handler, it is triggered by a keyword."""
-        self.log.info("adapt status intent was triggered")
-        machine_number = message.data.get('number')
-        self.log.info(machine_number)
-        self.speak_dialog("machine.status",{'number': machine_number})
-        self.set_context('number', machine_number)'''
-      
-        
+    # Resume chat activator that would resume the conversation thread of a chat
+    @intent_handler(IntentBuilder("ResumeChat").require("Resume"))
+    def handle_resume_chat(self, message):
+        self.conversation_active = True
+        self.query_rasa()
 
     def stop(self):
-        pass
+        self.conversation_active = False
 
 def create_skill():
     return DiamondAssistant()
