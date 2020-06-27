@@ -2,7 +2,7 @@ from adapt.intent import IntentBuilder
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
 
 
-class DiamondAssistant(MycroftSkill):
+class MaintenanceReportingSkill(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
 
