@@ -3,4 +3,4 @@ dependencies:
 # Pip dependencies on PyPI
     python:
         - requests
-        - gensim
+
