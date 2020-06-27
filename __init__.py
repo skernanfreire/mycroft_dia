@@ -7,11 +7,11 @@ class MaintenanceReportingSkill(MycroftSkill):
         MycroftSkill.__init__(self)
 
     def initialize(self):
-    # Set the address of your Rasa's REST endpoint
-    self.conversation_active = False
-    self.convoID = 1
-    self.RASA_API = "https://06d0ffd3d43e.ngrok.io/webhooks/rest/webhook"
-    self.messages = []
+        # Set the address of your Rasa's REST endpoint
+        self.conversation_active = False
+        self.convoID = 1
+        self.RASA_API = "https://06d0ffd3d43e.ngrok.io/webhooks/rest/webhook"
+        self.messages = []
 
     def query_rasa(self, prompt=None):
         if self.conversation_active == False:
