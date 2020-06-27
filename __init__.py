@@ -1,5 +1,6 @@
 from adapt.intent import IntentBuilder
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
+import requests
 
 
 class MaintenanceReportingSkill(MycroftSkill):
