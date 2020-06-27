@@ -68,5 +68,5 @@ class MaintenanceReportingSkill(MycroftSkill):
         self.conversation_active = False
 
 def create_skill():
-    return DiamondAssistant()
+    return MaintenanceReportingSkill()
 
