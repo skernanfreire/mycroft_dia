@@ -2,13 +2,10 @@
 Provides industrial maintenance assistance
 
 ## About
-The diamond assistant support maintenance technicians in predictive maintenance related tasks
+The diamond assistant support maintenance technicians in corrective maintenance reporting tasks
 
 ## Examples
-* "What is the status of machine 2"
-* "How long has machine 4 been running"
-* "Are there any recommended maintenance actions"
-* "What are the risks of postponing the scheduled maintenance for machine 5"
+* "I just removed the outer tyre"
 
 ## Credits
 skernanfreire
@@ -19,5 +16,5 @@ Iot
 Productivity
 
 ## Tags
-#Predictive maintenance
+#Industry 4.0
 
