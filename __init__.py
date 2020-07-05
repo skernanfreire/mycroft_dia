@@ -11,7 +11,7 @@ class MaintenanceReportingSkill(MycroftSkill):
         # Set the address of your Rasa's REST endpoint
         self.conversation_active = False
         self.convoID = 1
-        self.RASA_API = "https://06d0ffd3d43e.ngrok.io/webhooks/rest/webhook"
+        self.RASA_API = "https://b230ed1edc6c.eu.ngrok.io/webhooks/rest/webhook"
         self.messages = []
 
     def query_rasa(self, prompt=None):
